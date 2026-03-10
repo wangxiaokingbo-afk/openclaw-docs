@@ -3,43 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OpenClaw 多 Agent 配置方案 V3.0</title>
+    <title>OpenClaw 多 Agent 配置方案 V3.0 - 小白版</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto; padding: 20px; background: #f5f5f5; }
-        .container { background: white; padding: 40px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-        h1 { color: #1a73e8; border-bottom: 3px solid #1a73e8; padding-bottom: 10px; margin-bottom: 30px; }
-        h2 { color: #333; margin: 30px 0 15px; padding-left: 10px; border-left: 4px solid #1a73e8; }
-        h3 { color: #555; margin: 20px 0 10px; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Microsoft YaHei', sans-serif; line-height: 1.8; color: #333; max-width: 1000px; margin: 0 auto; padding: 20px; background: #f5f5f5; }
+        .container { background: white; padding: 40px; border-radius: 8px; box-shadow: 0 2px 12px rgba(0,0,0,0.1); }
+        h1 { color: #1a73e8; border-bottom: 3px solid #1a73e8; padding-bottom: 15px; margin-bottom: 30px; font-size: 28px; }
+        h2 { color: #333; margin: 35px 0 20px; padding: 12px 15px; background: #e8f0fe; border-radius: 6px; border-left: 5px solid #1a73e8; }
+        h3 { color: #444; margin: 25px 0 12px; padding-left: 10px; border-left: 3px solid #667eea; }
         .conclusion { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 8px; margin-bottom: 30px; }
-        .conclusion h2 { color: white; border-left: none; margin-top: 0; }
+        .conclusion h2 { color: white; background: none; border-left: none; margin-top: 0; }
         .conclusion ul { margin-left: 20px; }
-        .conclusion li { margin: 8px 0; }
-        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-        th, td { padding: 12px; text-align: left; border: 1px solid #ddd; }
-        th { background: #f8f9fa; font-weight: 600; }
-        tr:nth-child(even) { background: #f8f9fa; }
-        .code-block { background: #2d2d2d; color: #f8f8f2; padding: 20px; border-radius: 6px; overflow-x: auto; font-family: 'Monaco', 'Consolas', monospace; font-size: 13px; margin: 15px 0; }
+        .conclusion li { margin: 10px 0; }
+        .step { background: #f8f9fa; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; margin: 20px 0; }
+        .step-header { display: flex; align-items: center; margin-bottom: 15px; }
+        .step-number { background: #1a73e8; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 12px; flex-shrink: 0; }
+        .step-title { font-size: 18px; font-weight: 600; color: #333; }
+        .code-block { background: #2d2d2d; color: #f8f8f2; padding: 20px; border-radius: 6px; overflow-x: auto; font-family: 'Monaco', 'Menlo', 'Consolas', monospace; font-size: 13px; margin: 15px 0; line-height: 1.6; }
         .code-block .comment { color: #75715e; }
         .code-block .string { color: #a6e22e; }
         .code-block .keyword { color: #66d9ef; }
-        .tree { font-family: monospace; background: #f8f9fa; padding: 15px; border-radius: 6px; margin: 15px 0; line-height: 1.8; }
-        .highlight { background: #fff3cd; padding: 2px 6px; border-radius: 3px; }
-        .warning { background: #f8d7da; border-left: 4px solid #dc3545; padding: 15px; margin: 15px 0; }
-        .success { background: #d4edda; border-left: 4px solid #28a745; padding: 15px; margin: 15px 0; }
-        .workflow { background: #e7f3ff; padding: 20px; border-radius: 8px; margin: 20px 0; }
-        .workflow-arrow { text-align: center; color: #1a73e8; font-size: 20px; margin: 5px 0; }
-        ul, ol { margin-left: 25px; margin-bottom: 15px; }
-        li { margin: 8px 0; }
-        .checklist { list-style: none; margin-left: 0; }
-        .checklist li { padding: 8px 0; border-bottom: 1px solid #eee; }
-        .checklist li:before { content: "☐ "; color: #667eea; }
-        footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; color: #666; font-size: 14px; text-align: center; }
+        .code-title { background: #444; color: #fff; padding: 8px 15px; border-radius: 6px 6px 0 0; font-family: monospace; font-size: 12px; margin-top: 15px; }
+        .code-wrapper { border-radius: 6px; overflow: hidden; margin: 15px 0; }
+        .code-wrapper .code-block { margin: 0; border-radius: 0; }
+        .tip { background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin: 15px 0; border-radius: 0 6px 6px 0; }
+        .tip-title { font-weight: 600; color: #856404; margin-bottom: 8px; }
+        .warning { background: #f8d7da; border-left: 4px solid #dc3545; padding: 15px; margin: 15px 0; border-radius: 0 6px 6px 0; }
+        .warning-title { font-weight: 600; color: #721c24; margin-bottom: 8px; }
+        .success { background: #d4edda; border-left: 4px solid #28a745; padding: 15px; margin: 15px 0; border-radius: 0 6px 6px 0; }
+        .success-title { font-weight: 600; color: #155724; margin-bottom: 8px; }
+        .checklist { list-style: none; margin: 15px 0; }
+        .checklist li { padding: 10px 15px; margin: 8px 0; background: #f8f9fa; border-radius: 6px; border-left: 3px solid #28a745; }
+        .checklist li:before { content: "✅ "; }
+        .tree { font-family: 'Monaco', 'Menlo', monospace; background: #f8f9fa; padding: 20px; border-radius: 6px; margin: 15px 0; line-height: 2; font-size: 13px; }
+        .tree .dir { color: #1a73e8; font-weight: 600; }
+        .tree .file { color: #28a745; }
+        .tree .comment { color: #75715e; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { padding: 12px 15px; text-align: left; border: 1px solid #ddd; }
+        th { background: #f8f9fa; font-weight: 600; color: #333; }
+        tr:nth-child(even) { background: #f8f9fa; }
+        tr:hover { background: #e8f0fe; }
+        .badge { display: inline-block; padding: 3px 8px; border-radius: 4px; font-size: 12px; font-weight: 600; }
+        .badge-success { background: #28a745; color: white; }
+        .badge-warning { background: #ffc107; color: #333; }
+        .badge-danger { background: #dc3545; color: white; }
+        .badge-info { background: #17a2b8; color: white; }
+        .workflow { background: #e7f3ff; padding: 25px; border-radius: 8px; margin: 20px 0; }
+        .workflow-item { text-align: center; padding: 10px 20px; background: white; border-radius: 6px; display: inline-block; margin: 5px; }
+        .workflow-arrow { text-align: center; color: #1a73e8; font-size: 24px; margin: 10px 0; }
+        .workflow-row { text-align: center; margin: 10px 0; }
+        a { color: #1a73e8; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .toc { background: #f8f9fa; padding: 20px; border-radius: 6px; margin: 20px 0; }
+        .toc h3 { margin-top: 0; }
+        .toc ul { list-style: none; margin-left: 0; }
+        .toc li { margin: 8px 0; padding-left: 20px; position: relative; }
+        .toc li:before { content: "📍"; position: absolute; left: 0; }
+        .toc a { color: #333; }
+        .toc a:hover { color: #1a73e8; }
+        footer { margin-top: 40px; padding-top: 20px; border-top: 2px solid #e0e0e0; color: #666; font-size: 14px; text-align: center; }
+        .copy-btn { background: #1a73e8; color: white; border: none; padding: 5px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; float: right; }
+        .copy-btn:hover { background: #1557b0; }
+        .file-content { background: #fff; border: 1px solid #e0e0e0; border-radius: 6px; padding: 20px; margin: 15px 0; }
+        .file-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #e0e0e0; }
+        .file-path { font-family: monospace; color: #666; font-size: 13px; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🍊 OpenClaw 多 Agent 配置方案 V3.0</h1>
+        <h1>🍊 OpenClaw 多 Agent 配置方案 V3.0 - 小白版</h1>
         
         <div class="conclusion">
             <h2>📌 核心结论</h2>
@@ -52,224 +85,882 @@
             </ul>
         </div>
 
-        <h2>一、架构设计</h2>
-        <div class="tree">
-~/.openclaw/<br>
-├── openclaw.json              <span class="highlight"># 主配置（共享 gateway/channel）</span><br>
-├── shared/                    <span class="highlight"># 团队共享工件</span><br>
-│   ├── TASK_BOARD.md<br>
-│   ├── DECISIONS.md<br>
-│   ├── RESEARCH_LOG.md<br>
-│   ├── IMPLEMENTATION_LOG.md<br>
-│   ├── REVIEW_LOG.md<br>
-│   └── HANDOFFS/<br>
-├── workspace/                 <span class="highlight"># 小橙 (Coordinator) 主工作区【保持不变】</span><br>
-│   └── AGENTS.md, SOUL.md, USER.md, TOOLS.md, MEMORY.md, memory/<br>
-├── workspace-researcher/      <span class="highlight"># Researcher 独立工作区</span><br>
-│   └── AGENTS.md, SOUL.md, USER.md, TOOLS.md, MEMORY.md, memory/<br>
-├── workspace-builder/         <span class="highlight"># Builder 独立工作区</span><br>
-│   └── AGENTS.md, SOUL.md, USER.md, TOOLS.md, MEMORY.md, memory/<br>
-└── workspace-reviewer/        <span class="highlight"># Reviewer 独立工作区</span><br>
-    └── AGENTS.md, SOUL.md, USER.md, TOOLS.md, MEMORY.md, memory/
-        </div>
-
-        <h2>二、核心配置</h2>
-        
-        <h3>2.1 openclaw.json 配置</h3>
-        <div class="code-block">
-{
-  <span class="keyword">"channel"</span>: {
-    <span class="string">"provider"</span>: <span class="string">"dingtalk"</span>,
-    <span class="string">"webhook"</span>: <span class="string">"你的钉钉 webhook"</span>
-  },
-  <span class="keyword">"gateway"</span>: {
-    <span class="string">"enabled"</span>: <span class="keyword">true</span>
-  },
-  <span class="keyword">"agents"</span>: {
-    <span class="string">"coordinator"</span>: {
-      <span class="string">"workspace"</span>: <span class="string">"./workspace"</span>,
-      <span class="string">"binding"</span>: <span class="string">"default"</span>
-    },
-    <span class="string">"researcher"</span>: {
-      <span class="string">"workspace"</span>: <span class="string">"./workspace-researcher"</span>,
-      <span class="string">"binding"</span>: <span class="string">"coordinator"</span>
-    },
-    <span class="string">"builder"</span>: {
-      <span class="string">"workspace"</span>: <span class="string">"./workspace-builder"</span>,
-      <span class="string">"binding"</span>: <span class="string">"coordinator"</span>
-    },
-    <span class="string">"reviewer"</span>: {
-      <span class="string">"workspace"</span>: <span class="string">"./workspace-reviewer"</span>,
-      <span class="string">"binding"</span>: <span class="string">"coordinator"</span>
-    }
-  }
-}
-        </div>
-
-        <h3>2.2 工具权限与 Sandbox 策略</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Agent</th>
-                    <th>Sandbox</th>
-                    <th>exec</th>
-                    <th>browser</th>
-                    <th>职责边界</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>Coordinator</strong></td>
-                    <td>off</td>
-                    <td>✅</td>
-                    <td>✅</td>
-                    <td>调度、汇总、不深度实现</td>
-                </tr>
-                <tr>
-                    <td><strong>Researcher</strong></td>
-                    <td>on</td>
-                    <td>⚠️</td>
-                    <td>✅</td>
-                    <td>查证、不拍板、不改代码</td>
-                </tr>
-                <tr>
-                    <td><strong>Builder</strong></td>
-                    <td>on</td>
-                    <td>✅</td>
-                    <td>❌</td>
-                    <td>实现、不猜 API、不扩 scope</td>
-                </tr>
-                <tr>
-                    <td><strong>Reviewer</strong></td>
-                    <td>on</td>
-                    <td>❌</td>
-                    <td>❌</td>
-                    <td>验收、不重做实现</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <h2>三、协作流程</h2>
-        <div class="workflow">
-            <div style="text-align: center; font-weight: 600; font-size: 18px;">用户 → Coordinator (小橙)</div>
-            <div class="workflow-arrow">↓</div>
-            <div style="display: flex; justify-content: center; gap: 40px;">
-                <div>Researcher<br><span style="font-size: 12px; color: #666;">(信息不足时)</span></div>
-                <div>Builder<br><span style="font-size: 12px; color: #666;">(目标清晰时)</span></div>
-            </div>
-            <div class="workflow-arrow">↓</div>
-            <div style="text-align: center;">Reviewer</div>
-            <div class="workflow-arrow">↓</div>
-            <div style="text-align: center; font-weight: 600;">Coordinator → 用户</div>
-        </div>
-
-        <h3>标准闭环</h3>
-        <ol>
-            <li><strong>Coordinator</strong> 接需求 → 拆解任务</li>
-            <li>信息不足 → 派 <strong>Researcher</strong> 查证</li>
-            <li>目标清晰 → 派 <strong>Builder</strong> 实现</li>
-            <li>完成后 → 交 <strong>Reviewer</strong> 验收</li>
-            <li><strong>Reviewer</strong> 返回结论 → <strong>Coordinator</strong> 决定：
-                <ul>
-                    <li>✅ <strong>Accept</strong>（完成）</li>
-                    <li>🔄 <strong>Revise</strong>（修改）</li>
-                    <li>⚠️ <strong>Escalate</strong>（升级/补研/人工决策）</li>
-                </ul>
-            </li>
-        </ol>
-
-        <h2>四、双层记忆设计</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>层级</th>
-                    <th>位置</th>
-                    <th>内容</th>
-                    <th>访问范围</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>角色记忆</strong></td>
-                    <td>各 workspace/MEMORY.md</td>
-                    <td>常用偏好、角色经验、任务习惯、稳定规则</td>
-                    <td>仅本 Agent</td>
-                </tr>
-                <tr>
-                    <td><strong>团队工件</strong></td>
-                    <td>shared/ 目录</td>
-                    <td>当前目标、状态、决策、查证结论、实施改动、审查结果</td>
-                    <td>所有 Agent 可读</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <h2>五、共享工件模板</h2>
-        
-        <h3>5.1 TASK_BOARD.md</h3>
-        <div class="code-block">
-# Goal
-# Constraints
-# Backlog
-# In Progress
-# Review
-# Blocked
-# Done
-# Next action
-# Owner
-        </div>
-
-        <h3>5.2 DECISIONS.md</h3>
-        <div class="code-block">
-# Decisions
-
-## YYYY-MM-DD
-- decision
-- why
-- impact
-        </div>
-
-        <h3>5.3 HANDOFFS/README.md</h3>
-        <div class="code-block">
-# Handoffs
-
-Each handoff should record:
-- from / to
-- task / current state
-- blockers / expected output
-- related files
-        </div>
-
-        <h2>六、小橙 (Coordinator) 保障措施</h2>
-        <div class="success">
-            <strong>✅ 你的使用状态完全不受影响：</strong>
+        <div class="toc">
+            <h3>📑 目录</h3>
             <ul>
-                <li><strong>入口唯一</strong>：所有钉钉消息只到你这里，其他 Agent 不直接对外</li>
-                <li><strong>工作区独立</strong>：你的 <code>./workspace</code> 保持原样，不与其他 Agent 混用</li>
-                <li><strong>调度权</strong>：你决定何时调用哪个 Agent，调用顺序由你控制</li>
-                <li><strong>收口权</strong>：所有结果汇总到你这里，由你统一回复用户</li>
-                <li><strong>记忆独立</strong>：你的 MEMORY.md 只记录你的决策和上下文，不被污染</li>
+                <li><a href="#step1">步骤 1：创建目录结构</a></li>
+                <li><a href="#step2">步骤 2：创建 shared 共享工件</a></li>
+                <li><a href="#step3">步骤 3：创建 Researcher 工作区</a></li>
+                <li><a href="#step4">步骤 4：创建 Builder 工作区</a></li>
+                <li><a href="#step5">步骤 5：创建 Reviewer 工作区</a></li>
+                <li><a href="#step6">步骤 6：配置 openclaw.json</a></li>
+                <li><a href="#step7">步骤 7：验证配置</a></li>
+                <li><a href="#verify">如何验证生效</a></li>
             </ul>
         </div>
 
-        <h2>七、安全规则</h2>
-        <div class="warning">
-            <strong>⚠️ 10 轮失败挂起规则：</strong>
-            <p>同一任务 unresolved 超过 10 轮 → 暂停、记录 attempts/errors/blockers、上报人工决策，禁止无限循环试错。</p>
+        <h2 id="step1">步骤 1：创建目录结构</h2>
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">1</div>
+                <div class="step-title">打开终端，进入 OpenClaw 根目录</div>
+            </div>
+            <div class="code-wrapper">
+                <div class="code-title">📁 终端命令</div>
+                <div class="code-block">cd ~/.openclaw</div>
+            </div>
+            <div class="tip">
+                <div class="tip-title">💡 提示</div>
+                <p>~ 符号代表你的用户主目录，等价于 /Users/你的用户名</p>
+            </div>
         </div>
 
-        <h2>八、实施清单</h2>
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">2</div>
+                <div class="step-title">创建所有需要的目录</div>
+            </div>
+            <div class="code-wrapper">
+                <div class="code-title">📁 终端命令</div>
+                <div class="code-block">mkdir -p shared/HANDOFFS
+mkdir -p workspace-researcher/memory
+mkdir -p workspace-builder/memory
+mkdir -p workspace-reviewer/memory</div>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">3</div>
+                <div class="step-title">验证目录创建成功</div>
+            </div>
+            <div class="code-wrapper">
+                <div class="code-title">📁 终端命令</div>
+                <div class="code-block">ls -la</div>
+            </div>
+            <div class="success">
+                <div class="success-title">✅ 预期输出</div>
+                <p>你应该能看到以下新增目录：</p>
+                <ul>
+                    <li><code>shared/</code></li>
+                    <li><code>workspace-researcher/</code></li>
+                    <li><code>workspace-builder/</code></li>
+                    <li><code>workspace-reviewer/</code></li>
+                </ul>
+            </div>
+        </div>
+
+        <h2 id="step2">步骤 2：创建 shared 共享工件</h2>
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">1</div>
+                <div class="step-title">创建 TASK_BOARD.md</div>
+            </div>
+            <div class="code-wrapper">
+                <div class="code-title">📁 终端命令</div>
+                <div class="code-block">cat > shared/TASK_BOARD.md << 'EOF'
+# 团队任务看板
+
+## Goal
+<!-- 当前目标 -->
+
+## Constraints
+<!-- 约束条件 -->
+
+## Backlog
+<!-- 待办任务 -->
+- [ ] 
+
+## In Progress
+<!-- 进行中 -->
+- [ ] 
+
+## Review
+<!-- 待审查 -->
+- [ ] 
+
+## Blocked
+<!-- 已阻塞 -->
+- [ ] 
+
+## Done
+<!-- 已完成 -->
+- [ ] 
+
+## Next action
+<!-- 下一步行动 -->
+
+## Owner
+<!-- 负责人 -->
+EOF</div>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">2</div>
+                <div class="step-title">创建 DECISIONS.md</div>
+            </div>
+            <div class="code-wrapper">
+                <div class="code-title">📁 终端命令</div>
+                <div class="code-block">cat > shared/DECISIONS.md << 'EOF'
+# 团队决策记录
+
+## 2026-03-10
+- **决策**：启用多 Agent 架构
+- **原因**：需要职责分离，保证上下文隔离
+- **影响**：Coordinator 统一调度，其他 Agent 独立工作
+EOF</div>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">3</div>
+                <div class="step-title">创建 RESEARCH_LOG.md</div>
+            </div>
+            <div class="code-wrapper">
+                <div class="code-title">📁 终端命令</div>
+                <div class="code-block">cat > shared/RESEARCH_LOG.md << 'EOF'
+# 调研日志
+
+## Task
+<!-- 调研任务 -->
+
+## Findings
+<!-- 发现 -->
+
+## Evidence quality
+<!-- 证据质量：高/中/低 -->
+
+## Risks / uncertainty
+<!-- 风险/不确定性 -->
+
+## Recommendation
+<!-- 建议 -->
+
+## Notes for Builder / Coordinator / Reviewer
+<!-- 备注 -->
+EOF</div>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">4</div>
+                <div class="step-title">创建 IMPLEMENTATION_LOG.md</div>
+            </div>
+            <div class="code-wrapper">
+                <div class="code-title">📁 终端命令</div>
+                <div class="code-block">cat > shared/IMPLEMENTATION_LOG.md << 'EOF'
+# 实现日志
+
+## Task
+<!-- 实现任务 -->
+
+## Files changed
+<!-- 修改的文件 -->
+
+## Changes made
+<!-- 具体改动 -->
+
+## Validation
+<!-- 验证结果 -->
+
+## Risks / follow-ups
+<!-- 风险/后续工作 -->
+
+## Rollback note
+<!-- 回滚说明 -->
+EOF</div>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">5</div>
+                <div class="step-title">创建 REVIEW_LOG.md</div>
+            </div>
+            <div class="code-wrapper">
+                <div class="code-title">📁 终端命令</div>
+                <div class="code-block">cat > shared/REVIEW_LOG.md << 'EOF'
+# 审查日志
+
+## Review target
+<!-- 审查目标 -->
+
+## What is correct
+<!-- 正确的部分 -->
+
+## Issues found
+<!-- 发现的问题 -->
+
+## Severity
+<!-- 严重程度：Critical/High/Medium/Low -->
+
+## Verdict
+<!-- 结论：Accept / Revise / Escalate -->
+
+## Required next steps
+<!-- 需要的下一步 -->
+EOF</div>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">6</div>
+                <div class="step-title">创建 HANDOFFS/README.md</div>
+            </div>
+            <div class="code-wrapper">
+                <div class="code-title">📁 终端命令</div>
+                <div class="code-block">cat > shared/HANDOFFS/README.md << 'EOF'
+# 任务交接记录
+
+## 交接模板
+
+- **From**: 
+- **To**: 
+- **Task**: 
+- **Current state**: 
+- **Blockers**: 
+- **Expected output**: 
+- **Related files**: 
+
+## 历史交接
+
+<!-- 每次交接新建一个条目 -->
+EOF</div>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">7</div>
+                <div class="step-title">验证 shared 目录</div>
+            </div>
+            <div class="code-wrapper">
+                <div class="code-title">📁 终端命令</div>
+                <div class="code-block">ls -la shared/</div>
+            </div>
+            <div class="success">
+                <div class="success-title">✅ 预期输出</div>
+                <div class="tree">
+shared/
+├── TASK_BOARD.md
+├── DECISIONS.md
+├── RESEARCH_LOG.md
+├── IMPLEMENTATION_LOG.md
+├── REVIEW_LOG.md
+└── HANDOFFS/
+    └── README.md
+                </div>
+            </div>
+        </div>
+
+        <h2 id="step3">步骤 3：创建 Researcher 工作区</h2>
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">1</div>
+                <div class="step-title">创建 AGENTS.md</div>
+            </div>
+            <div class="code-wrapper">
+                <div class="code-title">📁 终端命令</div>
+                <div class="code-block">cat > workspace-researcher/AGENTS.md << 'EOF'
+# Researcher Agent
+
+## 职责
+- 联网搜索和查证
+- 多源信息对比
+- 提供结论 + 证据质量 + 不确定性说明
+
+## 工具权限
+- ✅ browser: 允许
+- ⚠️ exec: 限制使用
+- ❌ apply_patch: 禁止
+
+## Sandbox
+- 启用：是
+- 工作目录：./workspace-researcher
+
+## 行为准则
+- 不代替 Coordinator 拍板
+- 不改代码
+- 所有查证结论写入 shared/RESEARCH_LOG.md
+EOF</div>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">2</div>
+                <div class="step-title">创建 SOUL.md</div>
+            </div>
+            <div class="code-wrapper">
+                <div class="code-title">📁 终端命令</div>
+                <div class="code-block">cat > workspace-researcher/SOUL.md << 'EOF'
+# Researcher - 调研专家
+
+你是团队中的调研专家，负责信息查证和知识收集。
+
+## 工作风格
+- 严谨：每个结论都要有证据支撑
+- 全面：多源对比，不偏信单一来源
+- 透明：明确标注证据质量和不确定性
+
+## 输出格式
+1. 核心结论（1-2 句话）
+2. 证据列表（来源 + 可信度）
+3. 不确定性说明
+4. 对 Builder 的建议
+EOF</div>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">3</div>
+                <div class="step-title">创建 USER.md</div>
+            </div>
+            <div class="code-wrapper">
+                <div class="code-title">📁 终端命令</div>
+                <div class="code-block">cat > workspace-researcher/USER.md << 'EOF'
+# USER.md - About Your Human
+
+- **Name**: 王潇
+- **What to call them**: 小万
+- **Timezone**: Asia/Shanghai
+EOF</div>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">4</div>
+                <div class="step-title">创建 TOOLS.md</div>
+            </div>
+            <div class="code-wrapper">
+                <div class="code-title">📁 终端命令</div>
+                <div class="code-block">cat > workspace-researcher/TOOLS.md << 'EOF'
+# TOOLS.md - Researcher 配置
+
+## 工具偏好
+- browser: 主要用于 web_search 和 web_fetch
+- exec: 仅用于必要的文件读取，禁止网络下载
+
+## 搜索偏好
+- 优先使用中文源
+- 技术文档优先官方文档
+EOF</div>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">5</div>
+                <div class="step-title">创建 IDENTITY.md</div>
+            </div>
+            <div class="code-wrapper">
+                <div class="code-title">📁 终端命令</div>
+                <div class="code-block">cat > workspace-researcher/IDENTITY.md << 'EOF'
+# IDENTITY.md - Researcher
+
+- **Name**: Researcher
+- **Role**: 调研专家
+- **Emoji**: 🔍
+- **Vibe**: 严谨、全面、透明
+EOF</div>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">6</div>
+                <div class="step-title">创建 MEMORY.md</div>
+            </div>
+            <div class="code-wrapper">
+                <div class="code-title">📁 终端命令</div>
+                <div class="code-block">cat > workspace-researcher/MEMORY.md << 'EOF'
+# Researcher Memory
+
+## 角色记忆
+<!-- 这里记录 Researcher 的长期记忆 -->
+
+## 最近任务
+<!-- 最近完成的调研任务摘要 -->
+EOF</div>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">7</div>
+                <div class="step-title">验证 Researcher 工作区</div>
+            </div>
+            <div class="code-wrapper">
+                <div class="code-title">📁 终端命令</div>
+                <div class="code-block">ls -la workspace-researcher/</div>
+            </div>
+            <div class="success">
+                <div class="success-title">✅ 预期文件列表</div>
+                <ul>
+                    <li>AGENTS.md</li>
+                    <li>SOUL.md</li>
+                    <li>USER.md</li>
+                    <li>TOOLS.md</li>
+                    <li>IDENTITY.md</li>
+                    <li>MEMORY.md</li>
+                    <li>memory/ (目录)</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2 id="step4">步骤 4：创建 Builder 工作区</h2>
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">1</div>
+                <div class="step-title">创建所有文件（一次性命令）</div>
+            </div>
+            <div class="code-wrapper">
+                <div class="code-title">📁 终端命令</div>
+                <div class="code-block">cat > workspace-builder/AGENTS.md << 'EOF'
+# Builder Agent
+
+## 职责
+- 代码实现和文件修改
+- 执行验证
+- 写入实现日志
+
+## 工具权限
+- ❌ browser: 禁止
+- ✅ exec: 允许
+- ✅ apply_patch: 允许
+
+## Sandbox
+- 启用：是
+- 工作目录：./workspace-builder
+
+## 行为准则
+- 不猜 API/版本/最佳实践
+- 不擅自扩大 scope
+- 不确定时请求 Researcher 支援
+- 所有改动写入 shared/IMPLEMENTATION_LOG.md
+EOF
+
+cat > workspace-builder/SOUL.md << 'EOF'
+# Builder - 实现专家
+
+你是团队中的实现专家，负责代码编写和文件修改。
+
+## 工作风格
+- 最小改动：只改必要的部分
+- 验证驱动：每次修改后验证
+- 日志完整：详细记录改动和验证结果
+
+## 输出格式
+1. 改动概述
+2. 文件列表
+3. 验证步骤和结果
+4. 风险提示
+EOF
+
+cat > workspace-builder/USER.md << 'EOF'
+# USER.md
+
+- **Name**: 王潇
+- **What to call them**: 小万
+- **Timezone**: Asia/Shanghai
+EOF
+
+cat > workspace-builder/TOOLS.md << 'EOF'
+# TOOLS.md - Builder 配置
+
+## 工具偏好
+- exec: 主要用于文件操作和验证命令
+- apply_patch: 用于精确文件修改
+
+## 安全限制
+- 禁止删除文件（使用 trash 代替 rm）
+- 禁止修改 workspace-builder 外的文件
+EOF
+
+cat > workspace-builder/IDENTITY.md << 'EOF'
+# IDENTITY.md - Builder
+
+- **Name**: Builder
+- **Role**: 实现专家
+- **Emoji**: 🔨
+- **Vibe**: 务实、精确、验证驱动
+EOF
+
+cat > workspace-builder/MEMORY.md << 'EOF'
+# Builder Memory
+
+## 角色记忆
+<!-- 这里记录 Builder 的长期记忆 -->
+
+## 最近实现
+<!-- 最近完成的实现任务摘要 -->
+EOF</div>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">2</div>
+                <div class="step-title">验证 Builder 工作区</div>
+            </div>
+            <div class="code-wrapper">
+                <div class="code-title">📁 终端命令</div>
+                <div class="code-block">ls -la workspace-builder/</div>
+            </div>
+        </div>
+
+        <h2 id="step5">步骤 5：创建 Reviewer 工作区</h2>
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">1</div>
+                <div class="step-title">创建所有文件（一次性命令）</div>
+            </div>
+            <div class="code-wrapper">
+                <div class="code-title">📁 终端命令</div>
+                <div class="code-block">cat > workspace-reviewer/AGENTS.md << 'EOF'
+# Reviewer Agent
+
+## 职责
+- 对照目标/约束/风险验收
+- 标注问题严重程度
+- 给出 Accept/Revise/Escalate 结论
+
+## 工具权限
+- ❌ browser: 禁止
+- ❌ exec: 禁止
+- ❌ apply_patch: 禁止
+
+## Sandbox
+- 启用：是
+- 工作目录：./workspace-reviewer
+
+## 行为准则
+- 不直接重做实现
+- 不代替 Coordinator 拆任务
+- 所有审查结论写入 shared/REVIEW_LOG.md
+EOF
+
+cat > workspace-reviewer/SOUL.md << 'EOF'
+# Reviewer - 审查专家
+
+你是团队中的审查专家，负责质量验收和风险评估。
+
+## 工作风格
+- 客观：基于事实和问题描述
+- 严格：不放过关键问题
+- 建设性：给出明确的修改建议
+
+## 验收标准
+- Accept: 满足目标，无关键问题
+- Revise: 需要修改
+- Escalate: 需要补研究或人工决策
+EOF
+
+cat > workspace-reviewer/USER.md << 'EOF'
+# USER.md
+
+- **Name**: 王潇
+- **What to call them**: 小万
+- **Timezone**: Asia/Shanghai
+EOF
+
+cat > workspace-reviewer/TOOLS.md << 'EOF'
+# TOOLS.md - Reviewer 配置
+
+## 工具偏好
+- 只读工具：read, web_fetch (仅查看)
+- 禁止写操作
+
+## 审查清单
+- [ ] 目标是否满足
+- [ ] 约束是否遵守
+- [ ] 风险是否识别
+- [ ] 验证是否充分
+EOF
+
+cat > workspace-reviewer/IDENTITY.md << 'EOF'
+# IDENTITY.md - Reviewer
+
+- **Name**: Reviewer
+- **Role**: 审查专家
+- **Emoji**: ✅
+- **Vibe**: 严谨、客观、建设性
+EOF
+
+cat > workspace-reviewer/MEMORY.md << 'EOF'
+# Reviewer Memory
+
+## 角色记忆
+<!-- 这里记录 Reviewer 的长期记忆 -->
+
+## 最近审查
+<!-- 最近完成的审查任务摘要 -->
+EOF</div>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">2</div>
+                <div class="step-title">验证 Reviewer 工作区</div>
+            </div>
+            <div class="code-wrapper">
+                <div class="code-title">📁 终端命令</div>
+                <div class="code-block">ls -la workspace-reviewer/</div>
+            </div>
+        </div>
+
+        <h2 id="step6">步骤 6：配置 openclaw.json</h2>
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">1</div>
+                <div class="step-title">备份当前配置</div>
+            </div>
+            <div class="code-wrapper">
+                <div class="code-title">📁 终端命令</div>
+                <div class="code-block">cp openclaw.json openclaw.json.backup</div>
+            </div>
+            <div class="tip">
+                <div class="tip-title">💡 提示</div>
+                <p>备份是好习惯，配置出错可以恢复</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">2</div>
+                <div class="step-title">查看当前配置</div>
+            </div>
+            <div class="code-wrapper">
+                <div class="code-title">📁 终端命令</div>
+                <div class="code-block">cat openclaw.json</div>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">3</div>
+                <div class="step-title">编辑 openclaw.json</div>
+            </div>
+            <div class="tip">
+                <div class="tip-title">💡 操作说明</div>
+                <p>使用你喜欢的编辑器打开文件：</p>
+                <ul>
+                    <li><code>nano openclaw.json</code> (简单)</li>
+                    <li><code>vim openclaw.json</code> (专业)</li>
+                    <li><code>code openclaw.json</code> (VS Code)</li>
+                </ul>
+            </div>
+            <div class="file-content">
+                <div class="file-header">
+                    <span class="file-path">📄 ~/.openclaw/openclaw.json</span>
+                </div>
+                <div class="code-block">{
+  "channel": {
+    "provider": "dingtalk",
+    "webhook": "你的钉钉 webhook"
+  },
+  "gateway": {
+    "enabled": true
+  },
+  "agents": {
+    "coordinator": {
+      "workspace": "./workspace",
+      "binding": "default"
+    },
+    "researcher": {
+      "workspace": "./workspace-researcher",
+      "binding": "coordinator"
+    },
+    "builder": {
+      "workspace": "./workspace-builder",
+      "binding": "coordinator"
+    },
+    "reviewer": {
+      "workspace": "./workspace-reviewer",
+      "binding": "coordinator"
+    }
+  }
+}</div>
+            </div>
+            <div class="warning">
+                <div class="warning-title">⚠️ 注意事项</div>
+                <ul>
+                    <li>保留原有的其他配置项</li>
+                    <li>只添加/修改 agents 部分</li>
+                    <li>确保 JSON 格式正确（逗号、括号匹配）</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">4</div>
+                <div class="step-title">验证 JSON 格式</div>
+            </div>
+            <div class="code-wrapper">
+                <div class="code-title">📁 终端命令</div>
+                <div class="code-block">python3 -m json.tool openclaw.json > /dev/null && echo "✅ JSON 格式正确" || echo "❌ JSON 格式错误"</div>
+            </div>
+        </div>
+
+        <h2 id="step7">步骤 7：验证配置</h2>
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">1</div>
+                <div class="step-title">检查目录结构</div>
+            </div>
+            <div class="code-wrapper">
+                <div class="code-title">📁 终端命令</div>
+                <div class="code-block">tree -L 2 -I 'node_modules|.git' ~/.openclaw/</div>
+            </div>
+            <div class="success">
+                <div class="success-title">✅ 预期结构</div>
+                <div class="tree">
+~/.openclaw/
+├── openclaw.json
+├── shared/
+│   ├── TASK_BOARD.md
+│   ├── DECISIONS.md
+│   ├── RESEARCH_LOG.md
+│   ├── IMPLEMENTATION_LOG.md
+│   ├── REVIEW_LOG.md
+│   └── HANDOFFS/
+├── workspace/ <span class="comment"># 小橙的主工作区</span>
+├── workspace-researcher/
+├── workspace-builder/
+└── workspace-reviewer/
+                </div>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">2</div>
+                <div class="step-title">重启 OpenClaw Gateway</div>
+            </div>
+            <div class="code-wrapper">
+                <div class="code-title">📁 终端命令</div>
+                <div class="code-block">openclaw gateway restart</div>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">3</div>
+                <div class="step-title">检查 Gateway 状态</div>
+            </div>
+            <div class="code-wrapper">
+                <div class="code-title">📁 终端命令</div>
+                <div class="code-block">openclaw gateway status</div>
+            </div>
+            <div class="success">
+                <div class="success-title">✅ 预期输出</div>
+                <p>Gateway 状态应为 running</p>
+            </div>
+        </div>
+
+        <h2 id="verify">如何验证生效</h2>
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">1</div>
+                <div class="step-title">测试消息接收</div>
+            </div>
+            <div class="code-wrapper">
+                <div class="code-title">📱 操作</div>
+                <p>在钉钉群发送：「测试消息」</p>
+            </div>
+            <div class="success">
+                <div class="success-title">✅ 预期结果</div>
+                <p>小橙（Coordinator）正常回复</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">2</div>
+                <div class="step-title">测试任务调度</div>
+            </div>
+            <div class="code-wrapper">
+                <div class="code-title">📱 操作</div>
+                <p>在钉钉群发送：「请调研一下 OpenClaw 多 Agent 配置」</p>
+            </div>
+            <div class="success">
+                <div class="success-title">✅ 预期结果</div>
+                <p>小橙调度 Researcher 进行调研，并返回结果</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">3</div>
+                <div class="step-title">检查共享工件更新</div>
+            </div>
+            <div class="code-wrapper">
+                <div class="code-title">📁 终端命令</div>
+                <div class="code-block">cat shared/RESEARCH_LOG.md</div>
+            </div>
+            <div class="success">
+                <div class="success-title">✅ 预期结果</div>
+                <p>Researcher 将调研结论写入日志</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">4</div>
+                <div class="step-title">检查工作区隔离</div>
+            </div>
+            <div class="code-wrapper">
+                <div class="code-title">📁 终端命令</div>
+                <div class="code-block">cat workspace-researcher/MEMORY.md
+cat workspace-builder/MEMORY.md
+cat workspace-reviewer/MEMORY.md</div>
+            </div>
+            <div class="success">
+                <div class="success-title">✅ 预期结果</div>
+                <p>每个 Agent 的 MEMORY.md 独立，互不影响</p>
+            </div>
+        </div>
+
+        <h2>📋 完整验证清单</h2>
         <ul class="checklist">
-            <li>创建 <code>shared/</code> 目录及 6 个模板文件</li>
-            <li>创建 <code>workspace-researcher/</code>、<code>workspace-builder/</code>、<code>workspace-reviewer/</code></li>
-            <li>为每个 Agent 配置 SOUL.md、AGENTS.md、TOOLS.md</li>
-            <li>更新 <code>openclaw.json</code> 添加多 agent 路由配置</li>
-            <li>配置 per-agent 工具权限与 sandbox 策略</li>
-            <li>测试 Coordinator → Researcher/Builder/Reviewer 调度链路</li>
+            <li>shared/ 目录包含 6 个文件</li>
+            <li>workspace-researcher/ 包含 7 个文件/目录</li>
+            <li>workspace-builder/ 包含 7 个文件/目录</li>
+            <li>workspace-reviewer/ 包含 7 个文件/目录</li>
+            <li>openclaw.json 格式正确</li>
+            <li>Gateway 状态为 running</li>
+            <li>钉钉消息正常接收</li>
+            <li>任务调度正常工作</li>
+            <li>共享工件正常更新</li>
+            <li>工作区隔离生效</li>
         </ul>
 
+        <h2>🔧 故障排查</h2>
+        <div class="warning">
+            <div class="warning-title">问题：Gateway 启动失败</div>
+            <p><strong>解决</strong>：检查 openclaw.json 格式，运行 <code>python3 -m json.tool openclaw.json</code> 验证</p>
+        </div>
+        <div class="warning">
+            <div class="warning-title">问题：消息不回复</div>
+            <p><strong>解决</strong>：检查 webhook 配置，确认钉钉机器人已启用</p>
+        </div>
+        <div class="warning">
+            <div class="warning-title">问题：Agent 不调度</div>
+            <p><strong>解决</strong>：检查 binding 配置，确保 researcher/builder/reviewer 的 binding 都是 "coordinator"</p>
+        </div>
+
         <footer>
-            <p>🍊 小橙 | 生成时间：2026-03-10 | 方案版本：V3.0</p>
+            <p>🍊 小橙 | 生成时间：2026-03-10 | 方案版本：V3.0 小白版</p>
+            <p>📄 文档地址：<a href="https://wangxiaokingbo-afk.github.io/openclaw-docs/">https://wangxiaokingbo-afk.github.io/openclaw-docs/</a></p>
         </footer>
     </div>
 </body>
